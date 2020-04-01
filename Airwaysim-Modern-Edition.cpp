@@ -10,7 +10,7 @@ int main()
     for (int i = 0; i < 54; i++) cout << " ";
     cout << "A  i  r  w  a  y  s  i  m      M  o  d  e  r  n      E  d  i  t  i  o  n";
     Sleep(3500);
-    if (!load_game)
+    if (!load_game())
     {
         new_account();
         normal_play(2020, 100000000);
