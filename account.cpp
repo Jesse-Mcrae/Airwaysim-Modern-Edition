@@ -1,6 +1,8 @@
 #include "account.h"
+#include "play.h"
 struct player1
 {
+	char airline_name[10001];
 	int year;
 	int money;
 	char head_quarter[5];
@@ -116,16 +118,37 @@ struct player1
 	int own_MD_11;
 	int own_MD_80;
 	int own_MD_90;
+	int airline_number;
+	struct airline
+	{
+		char start[5];
+		int start_number;
+		char end[5];
+		int end_number;
+		char aircraft_name[101];
+		int aircraft_number;
+		int price_eco;
+		int price_bus;
+		int price_fir;
+	}airline[10001];
+	struct staff
+	{
+		int pilot;
+		int crew;
+		int worker;
+		int manager;
+	}staff;
 }user1;
 int load_game()
 {
 	ifstream fin("Airwaysim_Save.txt");
-	if (!fin.is_open)
+	if (!fin.is_open())
 	{
 		return 0;
 	}
 	else
 	{
+		fin >> user1.airline_name;
 		fin >> user1.year;
 		fin >> user1.money;
 		fin >> user1.head_quarter;
@@ -292,9 +315,36 @@ int load_game()
 		fin >> user1.own_MD_11;
 		fin >> user1.own_MD_80;
 		fin >> user1.own_MD_90;
+		fin >> user1.airline_number;
+		for (int i = 0; i < user1.airline_number; ++i)
+		{
+			fin >> user1.airline->start;
+			fin >> user1.airline->start_number;
+			fin >> user1.airline->end;
+			fin >> user1.airline->end_number;
+			fin >> user1.airline->aircraft_name;
+			fin >> user1.airline->aircraft_number;
+			fin >> user1.airline->price_eco;
+			fin >> user1.airline->price_bus;
+			fin >> user1.airline->price_fir;
+		}
+		fin >> user1.staff.pilot;
+		fin >> user1.staff.crew;
+		fin >> user1.staff.worker;
+		fin >> user1.staff.manager;
+		fin.close();
+		normal_play(user1.year, user1.money);
 	}
 }
 void new_account()
 {
-
+	system("mode con cols=180 lines=51");
+	system("color f0");
+	for (int i = 0; i < 20; i++) cout << endl;
+	for (int i = 0; i < 77; i++) cout << " ";
+	cout << "Airline Creation";
+	cout << endl << endl;
+	for (int i = 0; i < 83; i++) cout << " ";
+	cout << "Airline Name: ";
+	cin >> user1.airline_name;
 }
